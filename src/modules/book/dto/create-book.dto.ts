@@ -1,5 +1,4 @@
 import {
-  IsDateString,
   IsMongoId,
   IsNotEmpty,
   IsOptional,
@@ -12,6 +11,7 @@ import {
   BOOK_DESC_MAX_LENGTH,
   BOOK_TITLE_MIN_LENGTH,
 } from "../constants/book.contant";
+import { Type } from "class-transformer";
 
 export class CreateBookDto {
   @IsString()
@@ -27,7 +27,7 @@ export class CreateBookDto {
   @IsMongoId()
   authorId: string;
 
-  @IsDateString()
+  @Type(() => Date)
   @IsValidPublishDate()
   publishedDate: Date;
 }

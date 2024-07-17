@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator";
+import {
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+} from "class-validator";
 import { MinAuthorAge } from "../validators/min-author-age.validator";
 import { Type } from "class-transformer";
 import {
@@ -22,4 +28,7 @@ export class CreateAuthorDto {
   birthdate: Date;
 }
 
-export class CreateAuthorResponseDto extends CreateAuthorDto {}
+export class CreateAuthorResponseDto extends CreateAuthorDto {
+  @IsMongoId()
+  _id: string;
+}

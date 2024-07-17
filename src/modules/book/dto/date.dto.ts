@@ -1,10 +1,11 @@
-import { IsDateString, ValidateIf } from "class-validator";
+import { Type } from "class-transformer";
+import { IsValidDateRage } from "../validators/date-rage.validator";
 
 export class BooksWithinDatesDto {
-  @IsDateString()
-  dateFrom: Date;
+  @Type(() => Date)
+  from: Date;
 
-  @IsDateString()
-  @ValidateIf((object) => object.dateFrom < object.dateTo)
-  dateTo: Date;
+  @Type(() => Date)
+  @IsValidDateRage()
+  to: Date;
 }

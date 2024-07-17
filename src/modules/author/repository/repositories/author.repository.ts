@@ -17,7 +17,13 @@ export class AuthorRepository {
   async create(
     createAuthorDto: CreateAuthorDto,
   ): Promise<CreateAuthorResponseDto> {
-    return await this.authorModel.create(createAuthorDto);
+    const author = await this.authorModel.create(createAuthorDto);
+    return {
+      _id: author.toString(),
+      name: author.name,
+      birthdate: author.birthdate,
+      biography: author.biography,
+    };
   }
 
   async findById(id: string): Promise<AuthorDoc> {

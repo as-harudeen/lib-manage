@@ -41,13 +41,14 @@ export class BookRepository {
     return await this.bookModel.find({ authorId });
   }
 
-  async findBooksWithinDates(
-    booksWithinDateDto: BooksWithinDatesDto,
-  ): Promise<BookDoc[]> {
+  async findBooksWithinDates({
+    from,
+    to,
+  }: BooksWithinDatesDto): Promise<BookDoc[]> {
     return await this.bookModel.find({
       $and: [
-        { publishedDate: { $gte: booksWithinDateDto.dateFrom } },
-        { publishedDate: { $lte: booksWithinDateDto.dateTo } },
+        { publishedDate: { $gte: from } },
+        { publishedDate: { $lte: to } },
       ],
     });
   }
