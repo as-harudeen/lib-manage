@@ -1,23 +1,25 @@
-import { Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator";
-import { MinAuthorAge } from "../../validators/min-author-age.validator";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import {
+  AUTHOR_BIOGRAPHY_MAX_LENGTH,
+  AUTHOR_NAME_MAX_LENGTH,
+  AUTHOR_NAME_MIN_LENGTH,
+} from "../../constants/author.constant";
 
+@Schema()
 export class Author {
-  @Prop({ required: true })
-  @IsString()
-  @IsNotEmpty()
-  @Length(3, 30)
+  @Prop({
+    required: true,
+    type: String,
+    minlength: AUTHOR_NAME_MIN_LENGTH,
+    maxlength: AUTHOR_NAME_MAX_LENGTH,
+  })
   name: string;
 
-  @Prop()
-  @IsString()
-  @IsOptional()
+  @Prop({ type: String, default: "", maxlength: AUTHOR_BIOGRAPHY_MAX_LENGTH })
   biography?: string;
 
   @Prop({ required: true })
-  @IsNotEmpty()
-  @MinAuthorAge()
   birthdate: Date;
 }
 
-export const AuthorSchema = SchemaFactory.createForClass(Author);
+export const authorSchema = SchemaFactory.createForClass(Author);

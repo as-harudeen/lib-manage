@@ -11,8 +11,8 @@ export class AuthorRepository {
     @DatabaseModel(Author.name) private readonly authorModel: Model<Author>,
   ) {}
 
-  async create(CreateAuthorDto: CreateAuthorDto) {
-    return await this.authorModel.create(CreateAuthorDto);
+  async create(createAuthorDto: CreateAuthorDto) {
+    return await this.authorModel.create(createAuthorDto);
   }
 
   async findById(id: string) {

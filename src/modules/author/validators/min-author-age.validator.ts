@@ -5,20 +5,20 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from "class-validator";
+import { AUTHOR_MIN_AGE } from "../constants/author.constant";
 
-@ValidatorConstraint({ name: "Author min age" })
+@ValidatorConstraint({ name: "MinAuthorAge" })
 @Injectable()
 class MinAuthorAgeValidator implements ValidatorConstraintInterface {
   validate(value: Date): Promise<boolean> | boolean {
     const date = value.getDate();
     const month = value.getMonth() - 1;
-    const year = value.getFullYear() + 15;
-
+    const year = value.getFullYear() + AUTHOR_MIN_AGE;
     return new Date() >= new Date(year, month, date);
   }
 
   defaultMessage(): string {
-    return "Author must be atleast 15 years old";
+    return `Author must be atleast ${AUTHOR_MIN_AGE} years old`;
   }
 }
 
