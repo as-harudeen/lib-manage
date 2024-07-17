@@ -53,4 +53,9 @@ export class BooksController {
   async deleteBookById(@Param("id") id: string) {
     return await this.booksService.deleteById(id);
   }
+
+  @Get("author/:id")
+  async getAuthorBooksByAuthorId(@Param("id") id: string) {
+    return await this.booksService.findAuthorBooksByAuthorId(id);
+  }
 }

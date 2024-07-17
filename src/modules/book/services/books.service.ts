@@ -40,7 +40,7 @@ export class BooksService {
     return await this.bookRepository.deleteById(id);
   }
 
-  async findAllByAuthorId(authorId: string) {
+  async findAuthorBooksByAuthorId(authorId: string) {
     const isAuthorExist = await this.authorService.isExist(authorId);
     if (!isAuthorExist)
       throw new BadRequestException(
