@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { HydratedDocument } from "mongoose";
 import {
   AUTHOR_BIOGRAPHY_MAX_LENGTH,
   AUTHOR_NAME_MAX_LENGTH,
@@ -21,5 +22,7 @@ export class Author {
   @Prop({ required: true })
   birthdate: Date;
 }
+
+export type AuthorDoc = HydratedDocument<Author>;
 
 export const authorSchema = SchemaFactory.createForClass(Author);

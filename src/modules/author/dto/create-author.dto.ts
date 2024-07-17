@@ -21,3 +21,5 @@ export class CreateAuthorDto {
   @MinAuthorAge()
   birthdate: Date;
 }
+
+export class CreateAuthorResponseDto extends CreateAuthorDto {}
