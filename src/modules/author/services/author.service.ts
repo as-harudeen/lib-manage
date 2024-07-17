@@ -26,4 +26,9 @@ export class AuthorService {
   async deleteById(id: string) {
     return await this.authorRepository.deleteById(id);
   }
+
+  async isExist(id: string): Promise<boolean> {
+    const author = await this.authorRepository.findById(id);
+    return author !== null;
+  }
 }
