@@ -26,9 +26,9 @@ export const IsValidPublishDate = (validationOptions?: ValidationOptions) => {
     registerDecorator({
       name: "IsValidPublishedDate",
       propertyName,
-      target: object.target,
-      validator: PublishedDateValidator,
+      target: object.constructor,
       options: validationOptions,
+      validator: PublishedDateValidator,
     });
   };
 };
