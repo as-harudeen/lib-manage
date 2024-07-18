@@ -4,6 +4,8 @@ import { AuthorRepository } from "../repository/repositories/author.repository";
 import { mockRepository } from "../__mock__/author-repository.mock";
 import { CreateAuthorDto } from "../dto/create-author.dto";
 import { AuthorDto } from "../dto/autho.dto";
+import { mockBookService } from "../../../modules/book/__mock__/book-service.mock";
+import { BooksService } from "../../../modules/book/services/books.service";
 
 describe("Author Service", () => {
   let authorService: AuthorService;
@@ -16,6 +18,10 @@ describe("Author Service", () => {
         {
           provide: AuthorRepository,
           useValue: mockRepository,
+        },
+        {
+          provide: BooksService,
+          useValue: mockBookService,
         },
       ],
     }).compile();

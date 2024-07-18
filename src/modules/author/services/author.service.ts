@@ -2,7 +2,7 @@ import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { AuthorRepository } from "../repository/repositories/author.repository";
 import { CreateAuthorDto } from "../dto/create-author.dto";
 import { UpdateAuthorDto } from "../dto/update-author.dto";
-import { BooksService } from "src/modules/book/services/books.service";
+import { BooksService } from "../../../modules/book/services/books.service";
 
 @Injectable()
 export class AuthorService {

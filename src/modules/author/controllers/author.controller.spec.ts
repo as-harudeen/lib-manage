@@ -1,14 +1,7 @@
 import { Test } from "@nestjs/testing";
 import { AuthorService } from "../services/author.service";
 import { AuthorController } from "./author.controller";
-
-const mockAuthorService = {
-  create: jest.fn(),
-  findById: jest.fn(),
-  findAll: jest.fn(),
-  updateById: jest.fn(),
-  deleteById: jest.fn(),
-};
+import { mockAuthorService } from "../__mock__/author-service.mock";
 
 describe("Author Controller", () => {
   let authorService: AuthorService;
