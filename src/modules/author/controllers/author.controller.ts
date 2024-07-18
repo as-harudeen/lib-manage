@@ -19,8 +19,8 @@ import {
 } from "@nestjs/swagger";
 import { BooksService } from "../../../modules/book/services/books.service";
 
-@ApiTags("Author")
-@Controller("author")
+@ApiTags("Authors")
+@Controller("authors")
 export class AuthorController {
   constructor(
     private readonly authorService: AuthorService,

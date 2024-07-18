@@ -23,8 +23,8 @@ import {
 import { AuthorService } from "../../author/services/author.service";
 import { PaginationDto } from "../dto/pagination.dto";
 
-@ApiTags("Book")
-@Controller("book")
+@ApiTags("Books")
+@Controller("books")
 export class BooksController {
   constructor(
     private readonly booksService: BooksService,
