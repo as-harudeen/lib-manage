@@ -2,8 +2,6 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { BookRepository } from "../repository/repositories/book.repository";
 import { BooksService } from "./books.service";
 import { mockBookRepository } from "../__mock__/book-repository.mock";
-import { AuthorService } from "../../../modules/author/services/author.service";
-import { mockAuthorService } from "../../../modules/author/__mock__/author-service.mock";
 import { CreateBookDto } from "../dto/create-book.dto";
 import { UpdateBookDto } from "../dto/update-book.dto";
 
@@ -16,7 +14,6 @@ describe("Book Service", () => {
       providers: [
         BooksService,
         { provide: BookRepository, useValue: mockBookRepository },
-        { provide: AuthorService, useValue: mockAuthorService },
       ],
     }).compile();
 
