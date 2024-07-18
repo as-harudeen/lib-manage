@@ -4,8 +4,7 @@ import {
   BOOK_TITLE_MAX_LENGTH,
   BOOK_TITLE_MIN_LENGTH,
 } from "../../constants/book.contant";
-import { Author } from "src/modules/author/repository/entities/author.entity";
-import mongoose, { HydratedDocument } from "mongoose";
+import mongoose, { HydratedDocument, Types } from "mongoose";
 
 @Schema()
 export class Book {
@@ -21,7 +20,7 @@ export class Book {
   description: string;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: "Author" })
-  authorId: Author;
+  authorId: Types.ObjectId;
 
   @Prop({ required: true, type: Date })
   publishedDate: Date;

@@ -1,4 +1,4 @@
-import { DatabaseModel } from "src/common/database/decorators/database.decorator";
+import { DatabaseModel } from "../../../../common/database/decorators/database.decorator";
 import { Author, AuthorDoc } from "../entities/author.entity";
 import { Model } from "mongoose";
 import { UpdateAuthorDto } from "../../dto/update-author.dto";
