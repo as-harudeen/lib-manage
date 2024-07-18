@@ -47,7 +47,7 @@ export class BooksService {
         `Author with ID '${authorId}' does not exist`,
       );
 
-    return await this.bookRepository.findAllByAuthorId(authorId);
+    return await this.bookRepository.findBooksByAuthorId(authorId);
   }
 
   async findBooksWithinCertainDateRage(dateDto: BooksWithinDatesDto) {

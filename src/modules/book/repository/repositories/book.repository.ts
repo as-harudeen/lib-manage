@@ -47,7 +47,7 @@ export class BookRepository {
     return this.mapToBookDto(deletedBook);
   }
 
-  async findAllByAuthorId(authorId: string): Promise<BookDto[]> {
+  async findBooksByAuthorId(authorId: string): Promise<BookDto[]> {
     const books = await this.bookModel.find({ authorId });
     return books.map((book) => this.mapToBookDto(book));
   }
