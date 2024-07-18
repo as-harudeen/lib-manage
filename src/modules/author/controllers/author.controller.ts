@@ -16,11 +16,15 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { BooksService } from "../../../modules/book/services/books.service";
 
 @ApiTags("Author")
 @Controller("author")
 export class AuthorController {
-  constructor(private readonly authorService: AuthorService) {}
+  constructor(
+    private readonly authorService: AuthorService,
+    private readonly bookService: BooksService,
+  ) {}
 
   @ApiCreatedResponse({
     description: "The author has been successfully created",
@@ -55,6 +59,7 @@ export class AuthorController {
   @ApiResponse({ status: 200, description: "delete specific author by id" })
   @Delete(":id")
   async deleteAuthorById(@Param("id") id: string) {
+    await this.bookService.deleteAuthorBooksByIAuthorId(id);
     return await this.authorService.deleteById(id);
   }
 }
