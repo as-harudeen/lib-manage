@@ -13,6 +13,7 @@ import { UpdateAuthorDto } from "../dto/update-author.dto";
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiOperation,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -26,6 +27,7 @@ export class AuthorController {
     private readonly bookService: BooksService,
   ) {}
 
+  @ApiOperation({ summary: "Create an author" })
   @ApiCreatedResponse({
     description: "The author has been successfully created",
   })
@@ -35,18 +37,21 @@ export class AuthorController {
     return await this.authorService.create(createAuthorDto);
   }
 
+  @ApiOperation({ summary: "Get all athors" })
   @ApiResponse({ status: 200, description: "Get all authors" })
   @Get()
   async getAllAuthors() {
     return await this.authorService.findAll();
   }
 
+  @ApiOperation({ summary: "Get an author by id" })
   @ApiResponse({ status: 200, description: "Get specific author by id" })
   @Get(":id")
   async getAuthorById(@Param("id") id: string) {
     return await this.authorService.findById(id);
   }
 
+  @ApiOperation({ summary: "Update an author" })
   @ApiResponse({ status: 200, description: "update specific author by id" })
   @Patch(":id")
   async updateAuthorById(
@@ -56,6 +61,7 @@ export class AuthorController {
     return await this.authorService.updateById(id, updateAuthorDto);
   }
 
+  @ApiOperation({ summary: "Delete an author" })
   @ApiResponse({ status: 200, description: "delete specific author by id" })
   @Delete(":id")
   async deleteAuthorById(@Param("id") id: string) {

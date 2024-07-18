@@ -16,6 +16,8 @@ import { BooksWithinDatesDto } from "../dto/date.dto";
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -29,6 +31,7 @@ export class BooksController {
     private readonly authorService: AuthorService,
   ) {}
 
+  @ApiOperation({ summary: "Create a book" })
   @ApiCreatedResponse({ description: "Book has been created successfully" })
   @ApiBadRequestResponse({ description: "Validation failed" })
   @Post()
@@ -43,15 +46,30 @@ export class BooksController {
     return await this.booksService.create(createBookDto);
   }
 
-  @ApiResponse({ status: 200, description: "Get all books" })
+  @ApiOperation({ summary: "Get all books" })
+  @ApiResponse({ status: 200 })
   @Get()
   async getAllBooks() {
     return await this.booksService.findAll();
   }
 
+  @ApiOperation({ summary: "Get all books within a certain date rage" })
+  @ApiQuery({
+    name: "to",
+    required: true,
+    type: Date,
+    description: "to date of date range",
+    example: "2010-10-10",
+  })
+  @ApiQuery({
+    name: "from",
+    required: true,
+    type: Date,
+    description: "from date of date range",
+    example: "2000-10-10",
+  })
   @ApiResponse({
     status: 200,
-    description: "Get all books within a certain date rage",
   })
   @ApiBadRequestResponse({ description: "Validation failed" })
   @Get("/date-range")
@@ -63,13 +81,15 @@ export class BooksController {
     );
   }
 
-  @ApiResponse({ status: 200, description: "Get book by id" })
+  @ApiOperation({ summary: "Get book by id" })
+  @ApiResponse({ status: 200, description: "book has been returned" })
   @Get(":id")
   async getBookById(@Param("id") id: string) {
     return await this.booksService.findById(id);
   }
 
-  @ApiResponse({ status: 200, description: "Update book by id" })
+  @ApiOperation({ summary: "Update book by id" })
+  @ApiResponse({ status: 200, description: "Book has been updated" })
   @Patch(":id")
   async updateBookById(
     @Param("id") id: string,
@@ -78,15 +98,17 @@ export class BooksController {
     return await this.booksService.updateById(id, updateBookDto);
   }
 
-  @ApiResponse({ status: 200, description: "Delete book by id" })
+  @ApiOperation({ summary: "Delete book by id" })
+  @ApiResponse({ status: 200, description: "book has been deleted" })
   @Delete(":id")
   async deleteBookById(@Param("id") id: string) {
     return await this.booksService.deleteById(id);
   }
 
+  @ApiOperation({ summary: "Get all books of anthor by authorId" })
   @ApiResponse({
     status: 200,
-    description: "Get all books of anthor by authorId",
+    description: "books of an author has been returned",
   })
   @ApiBadRequestResponse({ description: "Validation failed" })
   @Get("author/:id")
