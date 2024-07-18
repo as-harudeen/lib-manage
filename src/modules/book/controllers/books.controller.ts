@@ -17,7 +17,6 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiOperation,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -48,8 +47,6 @@ export class BooksController {
   }
 
   @ApiOperation({ summary: "Get books with pagination" })
-  @ApiQuery({ name: "limit", type: Number, example: 10 })
-  @ApiQuery({ name: "page", type: Number, example: 1 })
   @ApiResponse({ status: 200 })
   @Get()
   async getAllBooks(@Query() { page, limit }: PaginationDto) {
@@ -57,20 +54,6 @@ export class BooksController {
   }
 
   @ApiOperation({ summary: "Get all books within a certain date rage" })
-  @ApiQuery({
-    name: "to",
-    required: true,
-    type: Date,
-    description: "to date of date range",
-    example: "2010-10-10",
-  })
-  @ApiQuery({
-    name: "from",
-    required: true,
-    type: Date,
-    description: "from date of date range",
-    example: "2000-10-10",
-  })
   @ApiResponse({
     status: 200,
   })
