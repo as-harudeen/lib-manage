@@ -22,6 +22,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { AuthorService } from "../../author/services/author.service";
+import { PaginationDto } from "../dto/pagination.dto";
 
 @ApiTags("Book")
 @Controller("book")
@@ -46,11 +47,13 @@ export class BooksController {
     return await this.booksService.create(createBookDto);
   }
 
-  @ApiOperation({ summary: "Get all books" })
+  @ApiOperation({ summary: "Get books with pagination" })
+  @ApiQuery({ name: "limit", type: Number, example: 10 })
+  @ApiQuery({ name: "page", type: Number, example: 1 })
   @ApiResponse({ status: 200 })
   @Get()
-  async getAllBooks() {
-    return await this.booksService.findAll();
+  async getAllBooks(@Query() { page, limit }: PaginationDto) {
+    return await this.booksService.findAll(page, limit);
   }
 
   @ApiOperation({ summary: "Get all books within a certain date rage" })

@@ -16,8 +16,8 @@ export class BooksService {
     return await this.bookRepository.findById(id);
   }
 
-  async findAll() {
-    return await this.bookRepository.findAll();
+  async findAll(page: number, limit: number) {
+    return await this.bookRepository.findAll(page, limit);
   }
 
   async updateById(id: string, updateBookDto: UpdateBookDto) {

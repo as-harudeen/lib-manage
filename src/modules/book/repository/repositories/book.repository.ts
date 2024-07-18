@@ -23,8 +23,9 @@ export class BookRepository {
     return this.mapToBookDto(book);
   }
 
-  async findAll(): Promise<BookDto[]> {
-    const books = await this.bookModel.find();
+  async findAll(page: number, limit: number): Promise<BookDto[]> {
+    const skip = (page - 1) * limit;
+    const books = await this.bookModel.find().skip(skip).limit(limit);
     return books.map((book) => this.mapToBookDto(book));
   }
 
