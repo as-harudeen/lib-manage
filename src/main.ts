@@ -8,6 +8,10 @@ async function bootstrap() {
 
   const configService = app.get<ConfigService>(ConfigService);
 
+  app.setGlobalPrefix("/api", {
+    exclude: ["/api-doc"],
+  });
+
   const port = configService.get<number>("app.port");
 
   swaggerBootstrap(app);
