@@ -1,32 +1,14 @@
-import {
-  BadRequestException,
-  forwardRef,
-  Inject,
-  Injectable,
-} from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { BookRepository } from "../repository/repositories/book.repository";
 import { CreateBookDto } from "../dto/create-book.dto";
-import { AuthorService } from "../../../modules/author/services/author.service";
 import { UpdateBookDto } from "../dto/update-book.dto";
 import { BooksWithinDatesDto } from "../dto/date.dto";
 
 @Injectable()
 export class BooksService {
-  constructor(
-    private readonly bookRepository: BookRepository,
-    @Inject(forwardRef(() => AuthorService))
-    private readonly authorService: AuthorService,
-  ) {}
+  constructor(private readonly bookRepository: BookRepository) {}
 
   async create(createBookDto: CreateBookDto) {
-    const isAuthorExist = await this.authorService.isExist(
-      createBookDto.authorId,
-    );
-    if (!isAuthorExist)
-      throw new BadRequestException(
-        `Author with ID '${createBookDto.authorId}' does not exist`,
-      );
-
     return await this.bookRepository.create(createBookDto);
   }
 
@@ -47,12 +29,6 @@ export class BooksService {
   }
 
   async findAuthorBooksByAuthorId(authorId: string) {
-    const isAuthorExist = await this.authorService.isExist(authorId);
-    if (!isAuthorExist)
-      throw new BadRequestException(
-        `Author with ID '${authorId}' does not exist`,
-      );
-
     return await this.bookRepository.findBooksByAuthorId(authorId);
   }
 

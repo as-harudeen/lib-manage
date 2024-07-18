@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -18,16 +19,27 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
+import { AuthorService } from "src/modules/author/services/author.service";
 
 @ApiTags("Book")
 @Controller("book")
 export class BooksController {
-  constructor(private readonly booksService: BooksService) {}
+  constructor(
+    private readonly booksService: BooksService,
+    private readonly authorService: AuthorService,
+  ) {}
 
   @ApiCreatedResponse({ description: "Book has been created successfully" })
   @ApiBadRequestResponse({ description: "Validation failed" })
   @Post()
   async create(@Body() createBookDto: CreateBookDto) {
+    const isAuthorExist = await this.authorService.isExist(
+      createBookDto.authorId,
+    );
+    if (!isAuthorExist)
+      throw new BadRequestException(
+        `Author with ID '${createBookDto.authorId}' does not exist`,
+      );
     return await this.booksService.create(createBookDto);
   }
 
