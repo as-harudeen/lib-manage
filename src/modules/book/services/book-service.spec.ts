@@ -38,7 +38,7 @@ describe("Book Service", () => {
   });
 
   it("should retrive all books", async () => {
-    const books = await bookService.findAll();
+    const books = await bookService.findAll(1, 10);
     expect(books).toEqual([
       {
         id: expect.any(String),

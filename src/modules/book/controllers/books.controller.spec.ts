@@ -45,7 +45,7 @@ describe("Books Controller", () => {
   });
 
   it("should bookcontroller call book service findAll method", async () => {
-    await bookController.getAllBooks();
+    await bookController.getAllBooks({ page: 1, limit: 10 });
     expect(bookService.findAll).toHaveBeenCalled();
   });
 
