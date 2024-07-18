@@ -19,7 +19,7 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { AuthorService } from "src/modules/author/services/author.service";
+import { AuthorService } from "../../author/services/author.service";
 
 @ApiTags("Book")
 @Controller("book")
