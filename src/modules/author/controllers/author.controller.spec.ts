@@ -2,6 +2,8 @@ import { Test } from "@nestjs/testing";
 import { AuthorService } from "../services/author.service";
 import { AuthorController } from "./author.controller";
 import { mockAuthorService } from "../__mock__/author-service.mock";
+import { BooksService } from "../../book/services/books.service";
+import { mockBookService } from "../../book/__mock__/book-service.mock";
 
 describe("Author Controller", () => {
   let authorService: AuthorService;
@@ -14,6 +16,10 @@ describe("Author Controller", () => {
         {
           provide: AuthorService,
           useValue: mockAuthorService,
+        },
+        {
+          provide: BooksService,
+          useValue: mockBookService,
         },
       ],
     }).compile();
