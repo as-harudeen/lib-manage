@@ -2,7 +2,7 @@ import { AuthorDto } from "../dto/autho.dto";
 import { CreateAuthorDto } from "../dto/create-author.dto";
 import { UpdateAuthorDto } from "../dto/update-author.dto";
 
-export const mockRepository = {
+export const mockAuthorRepository = {
   create: jest
     .fn()
     .mockImplementation(async (createAuthorDto: CreateAuthorDto) => {

@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { BookRepository } from "./repositories/book.repository";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Book, bookSchema } from "./entities/book.entity";
-import { DB_CONNECTION_NAME } from "src/common/database/constants/database.constant";
+import { DB_CONNECTION_NAME } from "../../../common/database/constants/database.constant";
 
 @Module({
   imports: [

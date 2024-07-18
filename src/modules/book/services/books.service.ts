@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { BookRepository } from "../repository/repositories/book.repository";
 import { CreateBookDto } from "../dto/create-book.dto";
-import { AuthorService } from "src/modules/author/services/author.service";
+import { AuthorService } from "../../../modules/author/services/author.service";
 import { UpdateBookDto } from "../dto/update-book.dto";
 import { BooksWithinDatesDto } from "../dto/date.dto";
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { DatabaseModel } from "src/common/database/decorators/database.decorator";
+import { DatabaseModel } from "../../../../common/database/decorators/database.decorator";
 import { Book, BookDoc } from "../entities/book.entity";
 import { Model } from "mongoose";
 import { CreateBookDto } from "../../dto/create-book.dto";
