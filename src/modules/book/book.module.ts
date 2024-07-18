@@ -1,11 +1,11 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { BookRepositoryModule } from "./repository/repository.module";
 import { AuthorModule } from "../author/author.moudule";
 import { BooksService } from "./services/books.service";
 import { BooksController } from "./controllers/books.controller";
 
 @Module({
-  imports: [BookRepositoryModule, AuthorModule],
+  imports: [BookRepositoryModule, forwardRef(() => AuthorModule)],
   providers: [BooksService],
   controllers: [BooksController],
   exports: [BooksService],

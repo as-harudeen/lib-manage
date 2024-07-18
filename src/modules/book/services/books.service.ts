@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from "@nestjs/common";
 import { BookRepository } from "../repository/repositories/book.repository";
 import { CreateBookDto } from "../dto/create-book.dto";
 import { AuthorService } from "src/modules/author/services/author.service";
@@ -9,6 +14,7 @@ import { BooksWithinDatesDto } from "../dto/date.dto";
 export class BooksService {
   constructor(
     private readonly bookRepository: BookRepository,
+    @Inject(forwardRef(() => AuthorService))
     private readonly authorService: AuthorService,
   ) {}
 
@@ -52,5 +58,9 @@ export class BooksService {
 
   async findBooksWithinCertainDateRage(dateDto: BooksWithinDatesDto) {
     return await this.bookRepository.findBooksWithinDates(dateDto);
+  }
+
+  async deleteAuthorBooksByIAuthorId(authorId: string) {
+    return await this.bookRepository.deleteBooksByAuthorId(authorId);
   }
 }

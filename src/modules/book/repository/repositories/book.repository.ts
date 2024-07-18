@@ -65,6 +65,10 @@ export class BookRepository {
     return books.map((book) => this.mapToBookDto(book));
   }
 
+  async deleteBooksByAuthorId(id: string) {
+    await this.bookModel.deleteMany({ authorId: id });
+  }
+
   private mapToBookDto(bookDoc: BookDoc): BookDto {
     if (!bookDoc) return null;
 
