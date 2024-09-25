@@ -25,6 +25,9 @@ export class Book {
   @Prop({ required: true, type: Date })
   publishedDate: Date;
 
+  @Prop({ required: true })
+  price: number;
+
   @Prop()
   coverPictureURL?: string;
 }

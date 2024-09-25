@@ -10,6 +10,9 @@ export class BookDto {
   @ApiProperty({ type: String })
   description: string;
 
+  @ApiProperty({ type: Number })
+  price: number;
+
   @ApiProperty({ type: Date })
   publishedDate: Date;
 

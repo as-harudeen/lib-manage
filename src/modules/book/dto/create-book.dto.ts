@@ -2,6 +2,7 @@ import {
   IsDefined,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -13,7 +14,7 @@ import {
   BOOK_TITLE_MAX_LENGTH,
   BOOK_TITLE_MIN_LENGTH,
 } from "../constants/book.contant";
-import { Type } from "class-transformer";
+import { Transform, Type } from "class-transformer";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Types } from "mongoose";
 
@@ -41,6 +42,16 @@ export class CreateBookDto {
   @IsString()
   @MaxLength(BOOK_DESC_MAX_LENGTH)
   description?: string;
+
+  @ApiPropertyOptional({
+    type: Number,
+    description: "Price of a book",
+    example: 300,
+  })
+  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
 
   @ApiProperty({
     type: Types.ObjectId,

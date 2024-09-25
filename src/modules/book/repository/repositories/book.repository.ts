@@ -80,6 +80,7 @@ export class BookRepository {
       publishedDate: bookDoc.publishedDate,
       authorId: bookDoc.authorId.toString(),
       coverPictureURL: bookDoc.coverPictureURL,
+      price: bookDoc.price,
     };
   }
 }
