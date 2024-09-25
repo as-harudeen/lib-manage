@@ -1,4 +1,5 @@
 import {
+  IsDefined,
   IsMongoId,
   IsNotEmpty,
   IsOptional,
@@ -54,6 +55,7 @@ export class CreateBookDto {
     description: "Published date of a book",
     example: "1999-06-20",
   })
+  @IsDefined()
   @Type(() => Date)
   @IsValidPublishDate()
   publishedDate: Date;

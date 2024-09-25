@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from "@nestjs/common";
 import { BooksService } from "../services/books.service";
 import { CreateBookDto } from "../dto/create-book.dto";
@@ -22,6 +24,11 @@ import {
 } from "@nestjs/swagger";
 import { AuthorService } from "../../author/services/author.service";
 import { PaginationDto } from "../dto/pagination.dto";
+import { FileValidationPipe } from "../validators/file.validator";
+import { ApiFileUpload } from "src/common/decorators/api-file.decorator";
+import { FileInterceptor } from "@nestjs/platform-express";
+
+const MAX_FILE_SIZE = 1024 * 1024 * 5; // 2MB
 
 @ApiTags("Books")
 @Controller("books")
@@ -76,12 +83,28 @@ export class BooksController {
 
   @ApiOperation({ summary: "Update book by id" })
   @ApiResponse({ status: 200, description: "Book has been updated" })
+  @ApiFileUpload("file")
   @Patch(":id")
   async updateBookById(
     @Param("id") id: string,
     @Body() updateBookDto: UpdateBookDto,
   ) {
     return await this.booksService.updateById(id, updateBookDto);
+  }
+
+  @ApiOperation({ summary: "Upload cover picture" })
+  @ApiResponse({
+    status: 200,
+    description: "Cover picture updated successfully",
+  })
+  @Patch(":id/cover-picture")
+  @UseInterceptors(FileInterceptor("file"))
+  async uploadCoverPicture(
+    @Param("id") id: string,
+    @UploadedFile(new FileValidationPipe(MAX_FILE_SIZE))
+    file: Express.Multer.File,
+  ) {
+    return await this.booksService.uploadCoverPicture(id, file);
   }
 
   @ApiOperation({ summary: "Delete book by id" })

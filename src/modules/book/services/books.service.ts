@@ -3,10 +3,14 @@ import { BookRepository } from "../repository/repositories/book.repository";
 import { CreateBookDto } from "../dto/create-book.dto";
 import { UpdateBookDto } from "../dto/update-book.dto";
 import { BooksWithinDatesDto } from "../dto/date.dto";
+import { S3FileUploadService } from "src/app/services/s3-file-upload.service";
 
 @Injectable()
 export class BooksService {
-  constructor(private readonly bookRepository: BookRepository) {}
+  constructor(
+    private readonly bookRepository: BookRepository,
+    private readonly s3FileUploadService: S3FileUploadService,
+  ) {}
 
   async create(createBookDto: CreateBookDto) {
     return await this.bookRepository.create(createBookDto);
@@ -22,6 +26,12 @@ export class BooksService {
 
   async updateById(id: string, updateBookDto: UpdateBookDto) {
     return await this.bookRepository.updateById(id, updateBookDto);
+  }
+
+  async uploadCoverPicture(id: string, file: Express.Multer.File) {
+    const key = await this.s3FileUploadService.uploadFile(file);
+    const url = `${process.env.BUCKET_URL}/${key}`;
+    return await this.bookRepository.updateById(id, { coverPictureURL: url });
   }
 
   async deleteById(id: string) {

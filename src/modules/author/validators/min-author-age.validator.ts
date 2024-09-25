@@ -11,6 +11,7 @@ import { AUTHOR_MIN_AGE } from "../constants/author.constant";
 @Injectable()
 class MinAuthorAgeValidator implements ValidatorConstraintInterface {
   validate(value: Date): Promise<boolean> | boolean {
+    if (!value) return false;
     const date = value.getDate();
     const month = value.getMonth() - 1;
     const year = value.getFullYear() + AUTHOR_MIN_AGE;

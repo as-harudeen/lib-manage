@@ -10,6 +10,7 @@ import {
 @Injectable()
 class PublishedDateValidator implements ValidatorConstraintInterface {
   validate(value: Date): boolean {
+    if (!value) return false;
     const date = value.getDate();
     const month = value.getMonth();
     const year = value.getFullYear();

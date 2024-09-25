@@ -24,6 +24,9 @@ export class Book {
 
   @Prop({ required: true, type: Date })
   publishedDate: Date;
+
+  @Prop()
+  coverPictureURL?: string;
 }
 
 export type BookDoc = HydratedDocument<Book>;

@@ -31,7 +31,7 @@ export class BookRepository {
 
   async updateById(
     id: string,
-    updateBookDto: UpdateBookDto,
+    updateBookDto: UpdateBookDto | { coverPictureURL?: string },
   ): Promise<BookDto | null> {
     const updatedBook = await this.bookModel.findByIdAndUpdate(
       id,
@@ -70,7 +70,7 @@ export class BookRepository {
     await this.bookModel.deleteMany({ authorId: id });
   }
 
-  private mapToBookDto(bookDoc: BookDoc): BookDto {
+  private mapToBookDto(bookDoc: BookDoc) {
     if (!bookDoc) return null;
 
     return {
@@ -79,6 +79,7 @@ export class BookRepository {
       description: bookDoc.description,
       publishedDate: bookDoc.publishedDate,
       authorId: bookDoc.authorId.toString(),
+      coverPictureURL: bookDoc.coverPictureURL,
     };
   }
 }
